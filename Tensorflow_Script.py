@@ -10,20 +10,7 @@ data = pd.read_csv('ML_Dataset.csv', index_col = 0)
 from sklearn.model_selection import train_test_split
 train_data, test_data = train_test_split(data, test_size = 2) 
 
-#y = data.is_churn
-#x = data.drop('is_churn',axis = 1)
-
 del data
-
-
-#X_train, X_test, y_train, y_test = train_test_split(x,y,test_size = 0.2)
-
-#del x, y
-
-#from sklearn.svm import SVC
-#svc_model = SVC()
-#svc_model.fit(X_train,y_train)
-
 
 # Start basic Neural Network
 sess = tf.InteractiveSession()
