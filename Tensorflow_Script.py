@@ -31,7 +31,7 @@ y_ = tf.placeholder(tf.float32, [None, 1])
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
 train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 for _ in range(1000):
-    random_numbers = rd.sample(range(0,train_data.shape[0]), 100)
+    random_numbers = rd.sample(range(0,train_data.shape[0]), 1000)
     batch = train_data.iloc[random_numbers,:]
     ex = batch.drop('is_churn', axis = 1).values
     why = np.reshape(batch.is_churn.values,(-1,1))
