@@ -8,7 +8,7 @@ import random as rd
 data = pd.read_csv('ML_Dataset.csv', index_col = 0)
 
 from sklearn.model_selection import train_test_split
-train_data, test_data = train_test_split(data, test_size = 0.5) 
+train_data, test_data = train_test_split(data, test_size = 0.2) 
 
 del data
 
@@ -30,9 +30,12 @@ y_ = tf.placeholder(tf.float32, [None, 1])
 
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
 train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+
+train_data_churn = train_data[train_data.is_churn == 1]
+train_data_normal = train_data[train_data.is_churn == 0]
+
 for _ in range(1000):
-    random_numbers = rd.sample(range(0,train_data[train_data].shape[0]), 1000)
-    batch = train_data.iloc[random_numbers,:]
+    batch = train_data_churn.sample(500).append(train_data_normal.sample(500))
     ex = batch.drop('is_churn', axis = 1).values
     why = np.reshape(batch.is_churn.values,(-1,1))
     train_step.run(feed_dict={x: ex, y_: why})
